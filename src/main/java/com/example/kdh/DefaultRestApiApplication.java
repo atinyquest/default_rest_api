@@ -1,4 +1,4 @@
-package com.example.default_rest_api;
+package com.example.kdh;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

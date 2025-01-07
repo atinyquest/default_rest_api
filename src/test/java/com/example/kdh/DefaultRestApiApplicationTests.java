@@ -1,4 +1,4 @@
-package com.example.default_rest_api;
+package com.example.kdh;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
