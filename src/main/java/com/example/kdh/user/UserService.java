@@ -1,5 +1,7 @@
 package com.example.kdh.user;
 
+import com.example.kdh.common.exception.ApiResponseEnum;
+import com.example.kdh.common.exception.CustomApiException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,15 +20,19 @@ public class UserService {
         return userRepository.findById(seqId).orElse(null);
     }
 
-    public void save(User userReq) {
+    public User save(User userReq) {
         userRepository.save(userReq);
+        return userReq;
     }
 
-    public void saveUser(User userReq) {
+    public User saveUser(User userReq) {
+        userRepository.findById(userReq.getSeqId()).orElseThrow(() -> new CustomApiException(ApiResponseEnum.USER_NOT_FOUND));
         userRepository.save(userReq);
+        return userReq;
     }
 
     public void deleteUser(Long seqId) {
+        userRepository.findById(seqId).orElseThrow(() -> new CustomApiException(ApiResponseEnum.USER_NOT_FOUND));
         userRepository.deleteById(seqId);
     }
 }

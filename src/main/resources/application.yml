@@ -9,16 +9,18 @@ spring:
   #  data,sql ?? ??
   sql:
     init:
-      mode: always
+      # always, never, embedded, embedded-always
+      mode: never
 
   #  jpa
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      # create create-drop update none
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQLDialect
     #    sql ?? ?? ??
-    defer-datasource-initialization: true
+    defer-datasource-initialization: false
