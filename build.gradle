@@ -30,6 +30,11 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation('org.assertj:assertj-core') {
+        version {
+            strictly '3.21.0'
+        }
+    }
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

@@ -21,4 +21,12 @@ public class UserService {
     public void save(User userReq) {
         userRepository.save(userReq);
     }
+
+    public void saveUser(User userReq) {
+        userRepository.save(userReq);
+    }
+
+    public void deleteUser(Long seqId) {
+        userRepository.deleteById(seqId);
+    }
 }
