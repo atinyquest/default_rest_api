@@ -3,8 +3,7 @@ package com.example.kdh.common.exception;
 import com.example.kdh.common.response.ApiResponse;
 import java.nio.file.AccessDeniedException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -16,6 +15,12 @@ public class GlobalExceptionHandler {
     public ApiResponse exceptionHandler(final CustomApiException e) {
         log.error("{}", e.getMessage(), e);
         return new ApiResponse(e.getError(), e);
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public ApiResponse exceptionHandler(final MethodArgumentNotValidException e) {
+        log.error("{}", e.getMessage(), e);
+        return new ApiResponse(ApiResponseEnum.BAD_REQUEST, e);
     }
 
     @ExceptionHandler({RuntimeException.class})

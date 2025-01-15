@@ -8,8 +8,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 @Getter
 public class ApiResponse implements Serializable {
@@ -81,13 +83,29 @@ public class ApiResponse implements Serializable {
         Long responseCode = (long) responseEnum.getCode();
         String responseMessage = responseEnum.getMessage();
         Long errorCode = responseCode != HttpStatus.OK.value() ? responseCode : null; // 클래스 이름 저장
-        String errorMessage = responseCode != HttpStatus.OK.value() ? responseMessage : null;
+        String errorMessage = getErrorMessage(responseEnum, (MethodArgumentNotValidException) ex,
+                responseCode, responseMessage);
 
         this.code = responseCode;
         this.message = responseMessage;
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
         this.body = Collections.EMPTY_MAP;
+    }
+
+    private static String getErrorMessage(ApiResponseEnum responseEnum,
+            MethodArgumentNotValidException ex, Long responseCode, String responseMessage) {
+        return responseCode != HttpStatus.OK.value() ?
+                getInvalidErrorMessage(responseEnum, ex, responseCode, responseMessage)
+                : null;
+    }
+
+    private static String getInvalidErrorMessage(ApiResponseEnum responseEnum,
+            MethodArgumentNotValidException ex, Long responseCode, String responseMessage) {
+        return responseCode == responseEnum.BAD_REQUEST.getCode() ?
+                ex.getBindingResult()
+                        .getAllErrors().stream().map(err -> err.getDefaultMessage())
+                        .collect(Collectors.joining(" , ")) : responseMessage;
     }
 
     public static ApiResponse customError(CustomApiException e) {

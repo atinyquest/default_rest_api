@@ -1,8 +1,12 @@
-package com.example.kdh.user;
+package com.example.kdh.user.controller;
 
 import com.example.kdh.common.exception.ApiResponseEnum;
 import com.example.kdh.common.exception.CustomApiException;
 import com.example.kdh.common.response.ApiResponse;
+import com.example.kdh.user.model.dto.UserReq;
+import com.example.kdh.user.model.vo.User;
+import com.example.kdh.user.service.UserService;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.CollectionUtils;
@@ -40,16 +44,16 @@ public class UserController {
         return ApiResponse.success(user);
     }
 
-    @PostMapping("insert")
-    public ApiResponse insert(@RequestBody User userReq) {
-        userService.save(userReq);
-        return ApiResponse.success(userReq);
+    @PostMapping("create")
+    public ApiResponse create(@Valid @RequestBody UserReq userReq) {
+        User user = userService.saveUser(userReq);
+        return ApiResponse.success(user);
     }
 
     @PutMapping("update")
-    public ApiResponse update(@RequestBody User userReq) {
-        userService.saveUser(userReq);
-        return ApiResponse.success(userReq);
+    public ApiResponse update(@RequestBody UserReq userReq) {
+        User user = userService.saveUser(userReq);
+        return ApiResponse.success(user);
     }
 
     @DeleteMapping("delete/{seqId}")

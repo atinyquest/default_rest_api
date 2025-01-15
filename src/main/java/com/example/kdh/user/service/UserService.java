@@ -1,7 +1,10 @@
-package com.example.kdh.user;
+package com.example.kdh.user.service;
 
 import com.example.kdh.common.exception.ApiResponseEnum;
 import com.example.kdh.common.exception.CustomApiException;
+import com.example.kdh.user.model.dto.UserReq;
+import com.example.kdh.user.model.vo.User;
+import com.example.kdh.user.model.dto.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,15 +23,15 @@ public class UserService {
         return userRepository.findById(seqId).orElse(null);
     }
 
-    public User save(User userReq) {
-        userRepository.save(userReq);
-        return userReq;
-    }
-
-    public User saveUser(User userReq) {
-        userRepository.findById(userReq.getSeqId()).orElseThrow(() -> new CustomApiException(ApiResponseEnum.USER_NOT_FOUND));
-        userRepository.save(userReq);
-        return userReq;
+    public User saveUser(UserReq userReq) {
+        if(userReq.getSeqId() != null && userReq.getSeqId() > 0){
+            userRepository.findById(userReq.getSeqId()).orElseThrow(() -> new CustomApiException(ApiResponseEnum.USER_NOT_FOUND));
+        }
+        return userRepository.save(User.builder()
+                .seqId(userReq.getSeqId())
+                .name(userReq.getName())
+                .email(userReq.getEmail())
+                .build());
     }
 
     public void deleteUser(Long seqId) {

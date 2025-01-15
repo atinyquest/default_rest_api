@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.example.kdh.user.model.dto.UserRepository;
+import com.example.kdh.user.model.vo.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterAll;
@@ -44,7 +46,7 @@ class UserControllerTest {
 
     @AfterAll
     static void tearDown(@Autowired UserRepository userRepository) {
-//        userRepository.deleteById(4L);
+        userRepository.deleteById(4L);
         userRepository.findAll().forEach(System.out::println);
     }
 
@@ -77,7 +79,6 @@ class UserControllerTest {
 
     @Test
     void objectMapperTest() throws JsonProcessingException {
-
         User user = User.builder()
                 .name("Jackson")
                 .email("jackson@blackholic.com")
@@ -92,12 +93,6 @@ class UserControllerTest {
     void insert() throws Exception {
         // given
         String url = "/user/insert";
-//        String jsonValue = """
-//                {
-//                    "name": "doe",
-//                    "email": "doe@blackholic.com"
-//                }
-//                """.stripIndent();
         User user = User.builder()
                 .name("Jackson")
                 .email("jackson@blackholic.com")
