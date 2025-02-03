@@ -38,7 +38,7 @@ public class ApiResponse implements Serializable {
         super();
 
         if(Objects.isNull(data)){
-            this.body = Collections.EMPTY_MAP;
+            this.body = Collections.emptyMap();
             this.code = (long) ApiResponseEnum.NO_CONTENT.getCode();
             this.message = ApiResponseEnum.NO_CONTENT.getMessage();
         } else {
@@ -95,7 +95,7 @@ public class ApiResponse implements Serializable {
         this.message = responseMessage;
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
-        this.body = Collections.EMPTY_MAP;
+        this.body = Collections.emptyMap();
     }
 
     private static String getErrorMessage(ApiResponseEnum responseEnum,
