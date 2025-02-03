@@ -20,7 +20,7 @@ public class UserService {
     }
 
     public User findById(Long seqId) {
-        return userRepository.findById(seqId).orElse(null);
+        return userRepository.findById(seqId).orElseThrow(() -> new CustomApiException(ApiResponseEnum.USER_NOT_FOUND));
     }
 
     public User saveUser(UserReq userReq) {

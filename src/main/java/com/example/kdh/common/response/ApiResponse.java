@@ -82,9 +82,14 @@ public class ApiResponse implements Serializable {
 
         Long responseCode = (long) responseEnum.getCode();
         String responseMessage = responseEnum.getMessage();
-        Long errorCode = responseCode != HttpStatus.OK.value() ? responseCode : null; // 클래스 이름 저장
-        String errorMessage = getErrorMessage(responseEnum, (MethodArgumentNotValidException) ex,
-                responseCode, responseMessage);
+        Long errorCode = responseCode != HttpStatus.OK.value() ? responseCode : null;
+        String errorMessage = null;
+        if (ex instanceof MethodArgumentNotValidException) {
+            errorMessage = getErrorMessage(responseEnum, (MethodArgumentNotValidException) ex, responseCode, responseMessage);
+        } else {
+            // 형변환이 불가능하면 기본 errorMessage 설정
+            errorMessage = responseCode != HttpStatus.OK.value() ? responseMessage : null;
+        }
 
         this.code = responseCode;
         this.message = responseMessage;
