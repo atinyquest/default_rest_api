@@ -15,7 +15,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserReq {
+public class UserRequestDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="seq_id")

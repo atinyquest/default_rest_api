@@ -3,7 +3,7 @@ package com.example.kdh.user.controller;
 import com.example.kdh.common.exception.ApiResponseEnum;
 import com.example.kdh.common.exception.CustomApiException;
 import com.example.kdh.common.response.ApiResponse;
-import com.example.kdh.user.model.dto.UserReq;
+import com.example.kdh.user.model.dto.UserRequestDTO;
 import com.example.kdh.user.model.vo.User;
 import com.example.kdh.user.service.UserService;
 import jakarta.validation.Valid;
@@ -45,14 +45,14 @@ public class UserController {
     }
 
     @PostMapping("create")
-    public ApiResponse create(@Valid @RequestBody UserReq userReq) {
-        User user = userService.saveUser(userReq);
+    public ApiResponse create(@Valid @RequestBody UserRequestDTO userRequestDTO) {
+        User user = userService.saveUser(userRequestDTO);
         return ApiResponse.success(user);
     }
 
     @PutMapping("update")
-    public ApiResponse update(@RequestBody UserReq userReq) {
-        User user = userService.saveUser(userReq);
+    public ApiResponse update(@RequestBody UserRequestDTO userRequestDTO) {
+        User user = userService.saveUser(userRequestDTO);
         return ApiResponse.success(user);
     }
 
