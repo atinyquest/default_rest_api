@@ -24,3 +24,18 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
     #    sql ?? ?? ??
     defer-datasource-initialization: false
+
+# swagger
+springdoc:
+  api-docs:
+    enabled: true
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    path: /swagger-ui  # ✅ 기본 경로 유지
+    enabled: true
+  packages-to-scan: com.example.kdh
+  paths-to-match:
+    - /api/**/**

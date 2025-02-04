@@ -6,6 +6,8 @@ import com.example.kdh.common.response.ApiResponse;
 import com.example.kdh.user.model.dto.UserRequestDTO;
 import com.example.kdh.user.model.vo.User;
 import com.example.kdh.user.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("user")
+@RequestMapping("/api/user")
+@Tag(name="UserController", description = "사용자 관련 RestApi 리스트")
 public class UserController {
 
     private final UserService userService;
 
     @GetMapping("select-all")
+    @Operation(summary = "사용자 정보 전체 조회")
     public ApiResponse selectAll() {
         List<User> list = userService.findAll();
         if(CollectionUtils.isEmpty(list)){
@@ -36,6 +40,7 @@ public class UserController {
     }
 
     @GetMapping("select/{seqId}")
+    @Operation(summary = "사용자 정보 조회")
     public ApiResponse selectUser(@PathVariable Long seqId) {
         User user = userService.findById(seqId);
         if(user == null){
@@ -45,19 +50,22 @@ public class UserController {
     }
 
     @PostMapping("create")
-    public ApiResponse create(@Valid @RequestBody UserRequestDTO userRequestDTO) {
+    @Operation(summary = "사용자 정보 추가")
+    public ApiResponse createUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
         User user = userService.saveUser(userRequestDTO);
         return ApiResponse.success(user);
     }
 
     @PutMapping("update")
-    public ApiResponse update(@RequestBody UserRequestDTO userRequestDTO) {
+    @Operation(summary = "사용자 정보 수정")
+    public ApiResponse updateUser(@RequestBody UserRequestDTO userRequestDTO) {
         User user = userService.saveUser(userRequestDTO);
         return ApiResponse.success(user);
     }
 
     @DeleteMapping("delete/{seqId}")
-    public ApiResponse delete(@PathVariable Long seqId) {
+    @Operation(summary = "사용자 정보 삭제(delete)")
+    public ApiResponse deleteUser(@PathVariable Long seqId) {
         userService.deleteUser(seqId);
         return ApiResponse.success();
     }
