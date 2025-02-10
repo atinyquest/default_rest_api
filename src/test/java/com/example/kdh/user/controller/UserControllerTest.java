@@ -1,4 +1,4 @@
-package com.example.kdh.user;
+package com.example.kdh.user.controller;
 
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.kdh.user.model.dto.UserRepository;
+import com.example.kdh.user.repository.UserRepository;
 import com.example.kdh.user.model.vo.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -117,7 +117,7 @@ class UserControllerTest {
         // given
         String url = "/user/update";
         User user = User.builder()
-                .seqId(2L)
+                .id(2L)
                 .name("Jackson")
                 .email("jackson@blackholic.com")
                 .build();

@@ -39,3 +39,7 @@ springdoc:
   packages-to-scan: com.example.kdh
   paths-to-match:
     - /api/**/**
+
+# jwt
+token:
+  key: 571d9f6ba03cb0051b3f5f1cfdffa1fd

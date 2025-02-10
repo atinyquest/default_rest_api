@@ -1,4 +1,4 @@
-package com.example.kdh.board.model.dto;
+package com.example.kdh.board.repository;
 
 import com.example.kdh.board.model.vo.Board;
 import org.springframework.data.jpa.repository.JpaRepository;

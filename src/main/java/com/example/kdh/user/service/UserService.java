@@ -4,7 +4,7 @@ import com.example.kdh.common.exception.ApiResponseEnum;
 import com.example.kdh.common.exception.CustomApiException;
 import com.example.kdh.user.model.dto.UserRequestDTO;
 import com.example.kdh.user.model.vo.User;
-import com.example.kdh.user.model.dto.UserRepository;
+import com.example.kdh.user.repository.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class UserService {
             userRepository.findById(userRequestDTO.getSeqId()).orElseThrow(() -> new CustomApiException(ApiResponseEnum.USER_NOT_FOUND));
         }
         return userRepository.save(User.builder()
-                .seqId(userRequestDTO.getSeqId())
+                .id(userRequestDTO.getSeqId())
                 .name(userRequestDTO.getName())
                 .email(userRequestDTO.getEmail())
                 .build());

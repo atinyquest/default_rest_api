@@ -1,7 +1,7 @@
 package com.example.kdh.board.model.vo;
 
 
-import com.example.kdh.util.BaseEntity;
+import com.example.kdh.common.model.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;

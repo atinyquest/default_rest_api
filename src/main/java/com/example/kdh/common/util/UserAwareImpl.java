@@ -1,4 +1,4 @@
-package com.example.kdh.util;
+package com.example.kdh.common.util;
 
 import java.util.Optional;
 import org.springframework.data.domain.AuditorAware;

@@ -1,6 +1,6 @@
 package com.example.kdh.board.service;
 
-import com.example.kdh.board.model.dto.BoardRepository;
+import com.example.kdh.board.repository.BoardRepository;
 import com.example.kdh.board.model.dto.BoardRequestDTO;
 import com.example.kdh.board.model.vo.Board;
 import com.example.kdh.common.exception.ApiResponseEnum;

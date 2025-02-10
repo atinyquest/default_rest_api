@@ -7,6 +7,7 @@ import com.example.kdh.user.model.dto.UserRequestDTO;
 import com.example.kdh.user.model.vo.User;
 import com.example.kdh.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
 @Tag(name="UserController", description = "사용자 관련 RestApi 리스트")
+@SecurityRequirement(name = "Bearer Authentication")
 public class UserController {
 
     private final UserService userService;
