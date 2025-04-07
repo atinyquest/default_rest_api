@@ -19,6 +19,9 @@ public enum ApiResponseEnum {
 
     //  사용자
     USER_NOT_FOUND(HttpStatus.NOT_FOUND.value(),"사용자를 찾을 수 없음"),
+    INCORRECT_NAME_AND_EMAIL(HttpStatus.BAD_REQUEST.value(),"사용자 이름/이메일이 잘못됨"),
+    VALIDITY_PERIOD_EXPIRED(HttpStatus.UNAUTHORIZED.value(),"유효기간 만료"),
+    INVALID_TOKEN(HttpStatus.UNAUTHORIZED.value(),"유효하지 않은 토큰"),
     ;
 
     private final int code;
