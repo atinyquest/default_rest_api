@@ -30,6 +30,9 @@ public class UserRequestDTO {
     @Email(message = "사용자 이메일이 이메일 형식이 아닙니다.")
     private String email;
 
+    @NotBlank(message = "사용자 비밀번호는 공백일 수 없습니다.")
+    private String password;
+
     @CreatedBy
     @Column(updatable = false, name="reg_seq_id")
     private Long regId;

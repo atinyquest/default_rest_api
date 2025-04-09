@@ -6,6 +6,7 @@ import com.example.kdh.board.service.BoardService;
 import com.example.kdh.common.exception.ApiResponseEnum;
 import com.example.kdh.common.exception.CustomApiException;
 import com.example.kdh.common.response.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.CollectionUtils;
@@ -21,11 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/board")
+@SecurityRequirement(name = "Bearer Authentication")
 public class BoardController {
 
     private final BoardService boardService;
 
-    @GetMapping
+    @GetMapping("/select-all")
     public ApiResponse getBoardList() {
         List<Board> list = boardService.findAll();
         if(CollectionUtils.isEmpty(list)) {

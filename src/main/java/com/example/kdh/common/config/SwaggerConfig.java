@@ -1,4 +1,4 @@
-package com.example.kdh.config;
+package com.example.kdh.common.config;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;

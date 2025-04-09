@@ -41,5 +41,6 @@ springdoc:
     - /api/**/**
 
 # jwt
-token:
-  key: 571d9f6ba03cb0051b3f5f1cfdffa1fd
+jwt:
+  secret: 571d9f6ba03cb0051b3f5f1cfdffa1fd
+  expiration: 3600000 # 1 hour

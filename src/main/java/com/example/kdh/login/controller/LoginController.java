@@ -25,21 +25,17 @@ public class LoginController {
     private final TokenManager tokenManager;
     private final UserRepository userRepository;
 
-    @GetMapping("/tokenPrint")
-    public void test() {
-        tokenManager.getTokenKeyPrint();
-    }
 
-    @GetMapping("/login")
-    public String login(@RequestParam(name="name") String name,@RequestParam(name="email") String email) {
-        User user = userRepository.findByNameAndEmail(name, email).orElseThrow(() -> new CustomApiException(ApiResponseEnum.INCORRECT_NAME_AND_EMAIL));
-        return tokenManager.generateToken(user);
+    @GetMapping("")
+    public String login(@RequestParam(name="name") String name,@RequestParam(name="password") String password) {
+        User user = userRepository.findByNameAndPassword(name, password).orElseThrow(() -> new CustomApiException(ApiResponseEnum.INCORRECT_NAME_AND_PASSWORD));
+        return tokenManager.generateToken(user,"ROLE_USER");
     }
 
     @GetMapping("/jwtValidate")
     public String jwtValidate(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         System.out.println(token);
-        Jws<Claims> jws =  tokenManager.validToken(token.substring("Bearer ".length()));
+        Jws<Claims> jws =  tokenManager.validateToken(token.substring("Bearer ".length()));
         return "정상토큰 " + jws.getPayload().getId();
     }
 }

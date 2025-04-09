@@ -1,7 +1,9 @@
 package com.example.kdh.common.exception;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+@Getter
 public enum ApiResponseEnum {
 
     //  공통
@@ -19,9 +21,10 @@ public enum ApiResponseEnum {
 
     //  사용자
     USER_NOT_FOUND(HttpStatus.NOT_FOUND.value(),"사용자를 찾을 수 없음"),
-    INCORRECT_NAME_AND_EMAIL(HttpStatus.BAD_REQUEST.value(),"사용자 이름/이메일이 잘못됨"),
+    INCORRECT_NAME_AND_PASSWORD(HttpStatus.BAD_REQUEST.value(),"사용자 이름혹은 비밀번호가 잘못됨"),
     VALIDITY_PERIOD_EXPIRED(HttpStatus.UNAUTHORIZED.value(),"유효기간 만료"),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED.value(),"유효하지 않은 토큰"),
+    NEED_TOKEN(HttpStatus.UNAUTHORIZED.value(),"토큰이 필요한 요청"),
     ;
 
     private final int code;
@@ -32,12 +35,5 @@ public enum ApiResponseEnum {
         this.message = message;
     }
 
-    public String getMessage() {
-        return this.message;
-    }
-
-    public int getCode() {
-        return this.code;
-    }
 }
 

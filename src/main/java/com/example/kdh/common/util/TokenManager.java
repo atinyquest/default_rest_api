@@ -17,35 +17,37 @@ import org.springframework.stereotype.Component;
 @Component
 public class TokenManager {
 
-    @Value("${token.key}")
-    private String tokenKey;
+    @Value("${jwt.secret}")
+    private String secretKey;
 
-    public void getTokenKeyPrint() {
-        System.out.println("tokenKey = " + tokenKey);
-    }
+    @Value("${jwt.expiration}")
+    private long expiration;
 
-    public String generateToken(User user) {
+    public String generateToken(User user, String role) {
+        Date now = new Date();
+        Date expiry = new Date(now.getTime() + expiration);
+
         return Jwts.builder()
-                .subject("userToken")
                 .id(user.getId().toString())
-                .claim("name", user.getName())
-                .claim("email", user.getEmail())
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 8))
-                .signWith(Keys.hmacShaKeyFor(tokenKey.getBytes(StandardCharsets.UTF_8)))
+                .claim("userId", user.getName())
+                .claim("role", role)
+                .setIssuedAt(now)
+                .setExpiration(expiry)
+                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public Jws<Claims> validToken(String token) {
+    public Jws<Claims> validateToken(String token) {
         try{
             Jws<Claims> jws = Jwts.parser()
-                    .setSigningKey(Keys.hmacShaKeyFor(tokenKey.getBytes(StandardCharsets.UTF_8)))
+                    .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)))
                     .build()
                     .parseSignedClaims(token);
             return jws;
         }catch(ExpiredJwtException e){
             throw new CustomApiException(ApiResponseEnum.VALIDITY_PERIOD_EXPIRED);
         }catch(Exception e){
-            throw new CustomApiException(ApiResponseEnum.INCORRECT_NAME_AND_EMAIL);
+            throw new CustomApiException(ApiResponseEnum.INCORRECT_NAME_AND_PASSWORD);
         }
     }
 }

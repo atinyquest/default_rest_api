@@ -37,11 +37,14 @@ public class User extends BaseEntity {
     @Email(message = "사용자 이메일이 이메일 형식이 아닙니다.")
     private String email;
 
+    private String password;
+
     @Builder
-    public User(Long id ,String name, String email) {
+    public User(Long id ,String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
 }

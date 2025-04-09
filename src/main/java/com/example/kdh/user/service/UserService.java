@@ -31,6 +31,7 @@ public class UserService {
                 .id(userRequestDTO.getSeqId())
                 .name(userRequestDTO.getName())
                 .email(userRequestDTO.getEmail())
+                .password(userRequestDTO.getPassword())
                 .build());
     }
 

@@ -31,7 +31,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("select-all")
+    @GetMapping("/select-all")
     @Operation(summary = "사용자 정보 전체 조회")
     public ApiResponse selectAll() {
         List<User> list = userService.findAll();
@@ -41,7 +41,7 @@ public class UserController {
         return ApiResponse.success(list);
     }
 
-    @GetMapping("select/{seqId}")
+    @GetMapping("/select/{seqId}")
     @Operation(summary = "사용자 정보 조회")
     public ApiResponse selectUser(@PathVariable Long seqId) {
         User user = userService.findById(seqId);
@@ -51,21 +51,21 @@ public class UserController {
         return ApiResponse.success(user);
     }
 
-    @PostMapping("create")
+    @PostMapping("/create")
     @Operation(summary = "사용자 정보 추가")
     public ApiResponse createUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
         User user = userService.saveUser(userRequestDTO);
         return ApiResponse.success(user);
     }
 
-    @PutMapping("update")
+    @PutMapping("/update")
     @Operation(summary = "사용자 정보 수정")
     public ApiResponse updateUser(@RequestBody UserRequestDTO userRequestDTO) {
         User user = userService.saveUser(userRequestDTO);
         return ApiResponse.success(user);
     }
 
-    @DeleteMapping("delete/{seqId}")
+    @DeleteMapping("/delete/{seqId}")
     @Operation(summary = "사용자 정보 삭제(delete)")
     public ApiResponse deleteUser(@PathVariable Long seqId) {
         userService.deleteUser(seqId);
